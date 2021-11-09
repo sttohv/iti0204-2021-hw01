@@ -1,6 +1,7 @@
 package ee.ttu.algoritmid.flights;
 
 public interface FlightCrewMember {
+
     public enum Role {
 
         PILOT,

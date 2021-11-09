@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class HW01 implements FlightCrewRegistrationSystem {
+    //private WaitingList waitingList = new WaitingList();
     private List<FlightCrewMember> waitingList = new ArrayList<>();
 
 
@@ -18,7 +19,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
             if (participantRole.equals(FlightCrewMember.Role.PILOT)) {
 
                 Optional<FlightCrewMember> optionalCopilot = getCopilotByPilot(participant);
-
+//                WaitingList.Node node = addNode();
                 if (optionalCopilot.isEmpty()) {
                     waitingList.add(participant);
                     return null;
