@@ -4,7 +4,8 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class HW01 implements FlightCrewRegistrationSystem {
-    private List<FlightCrewMember> waitingList;
+    private List<FlightCrewMember> waitingList = new ArrayList<>();
+
 
     @Override
     public FlightCrew registerToFlight(FlightCrewMember participant) throws IllegalArgumentException {
