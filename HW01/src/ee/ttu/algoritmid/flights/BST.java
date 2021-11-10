@@ -17,7 +17,7 @@ class BST {
     }
     // BST root node
     Node root;
-    List<FlightCrewMember> waitingList;
+    private List<FlightCrewMember> waitingList;
 
     // Constructor for BST =>initial empty tree
     BST(){
@@ -83,6 +83,11 @@ class BST {
             root = root.left;
         }
         return minval;
+    }
+
+    public List<FlightCrewMember> getWaitingList() {
+        inorder();
+        return waitingList;
     }
 
     // insert a node in BST
