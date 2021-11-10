@@ -76,12 +76,13 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     @Override
     public List<FlightCrewMember> crewMembersWithoutTeam() {
-        return bst.waitingList;
+        //bst.inorder(); // rooti peab välja mõtlema siia
+        return bst.getWaitingList();
     }
 
     private Optional<FlightCrewMember> getPilotByCopilot(FlightCrewMember copilot) {
         double copilotWorkExperience = copilot.getWorkExperience();
-        Stream<FlightCrewMember> pilot = bst.waitingList
+        Stream<FlightCrewMember> pilot = bst.getWaitingList()
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.PILOT)
                         && 10 >= (member.getWorkExperience() - copilotWorkExperience) && 5 <= (member.getWorkExperience()) - copilotWorkExperience);
@@ -100,7 +101,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     private Optional<FlightCrewMember> getCopilotByFlightAssistant(FlightCrewMember flightAssistant) {
         double flightAssistantWorkExperience = flightAssistant.getWorkExperience();
-        Stream<FlightCrewMember> copilots = bst.waitingList
+        Stream<FlightCrewMember> copilots = bst.getWaitingList()
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.COPILOT)
                         && 3 >= (member.getWorkExperience()) - flightAssistantWorkExperience);
@@ -110,7 +111,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
     //annad sisse copiloti
     private Optional<FlightCrewMember> getFlightAttendantByCopilot(FlightCrewMember copilot) {
         double copilotWorkExperience = copilot.getWorkExperience();
-        Stream<FlightCrewMember> flightAttendants = bst.waitingList
+        Stream<FlightCrewMember> flightAttendants = bst.getWaitingList()
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)
                         && 3 >= (copilotWorkExperience - member.getWorkExperience()));
