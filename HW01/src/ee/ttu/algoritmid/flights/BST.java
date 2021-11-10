@@ -28,6 +28,7 @@ class BST {
     //delete a node from BST
     void remove(FlightCrewMember crewMember) {
         root = remove_Recursive(root, crewMember);
+        //waitingList.remove(crewMember);
     }
 
     //recursive delete function
@@ -123,6 +124,9 @@ class BST {
 
     // method for inorder traversal of BST
     void inorder() {
+        if(!waitingList.isEmpty()){
+            waitingList = new ArrayList<>();
+        }
         inorder_Recursive(root);
     }
 
@@ -155,8 +159,7 @@ class BST {
         // val is less than root's key
         return search_Recursive(root.right, key);
     }
-}
-class Main{
+
     public static void main(String[] args)  {
         //create a BST object
         BST bst = new BST();
@@ -202,6 +205,8 @@ class Main{
         System.out.println("\ninsert");
         bst.add(member7);
         bst.inorder();
+        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
+
         System.out.println("\nDELETE");
         bst.remove(member7);
         bst.inorder();
