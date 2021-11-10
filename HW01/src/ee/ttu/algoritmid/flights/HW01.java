@@ -100,7 +100,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     private Optional<FlightCrewMember> getCopilotByFlightAssistant(FlightCrewMember flightAssistant) {
         double flightAssistantWorkExperience = flightAssistant.getWorkExperience();
-        Stream<FlightCrewMember> copilots = bst
+        Stream<FlightCrewMember> copilots = bst.waitingList
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.COPILOT)
                         && 3 >= (member.getWorkExperience()) - flightAssistantWorkExperience);
@@ -110,7 +110,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
     //annad sisse copiloti
     private Optional<FlightCrewMember> getFlightAttendantByCopilot(FlightCrewMember copilot) {
         double copilotWorkExperience = copilot.getWorkExperience();
-        Stream<FlightCrewMember> flightAttendants = bst
+        Stream<FlightCrewMember> flightAttendants = bst.waitingList
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)
                         && 3 >= (copilotWorkExperience - member.getWorkExperience()));

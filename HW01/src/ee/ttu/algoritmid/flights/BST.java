@@ -23,33 +23,33 @@ class BST {
         root = null;
     }
     //delete a node from BST
-    void delete(FlightCrewMember crewMember) {
-        root = delete_Recursive(root, crewMember);
+    void remove(FlightCrewMember crewMember) {
+        root = remove_Recursive(root, crewMember);
     }
 
     //recursive delete function
-    Node delete_Recursive(Node root, FlightCrewMember key)  {
+    Node remove_Recursive(Node root, FlightCrewMember key)  {
         //tree is empty
         if (root == null)  return root;
 
         //traverse the tree
         if (key.getWorkExperience() < root.crewMember.getWorkExperience())     //traverse left subtree
-            root.left = delete_Recursive(root.left, key);
+            root.left = remove_Recursive(root.left, key);
         else if (key.getWorkExperience() > root.crewMember.getWorkExperience())  //traverse right subtree
-            root.right = delete_Recursive(root.right, key);
+            root.right = remove_Recursive(root.right, key);
         else if (root.crewMember != key){
             FlightCrewMember.Role rootRole = root.crewMember.getRole();
             if (rootRole.equals(key.getRole())) {
-                root.right = delete_Recursive(root.right, key);
+                root.right = remove_Recursive(root.right, key);
             } else if (rootRole.equals(FlightCrewMember.Role.PILOT)) {
-                root.left = delete_Recursive(root.left, key);
+                root.left = remove_Recursive(root.left, key);
             } else if (rootRole.equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)) {
-                root.right = delete_Recursive(root.right, key);
+                root.right = remove_Recursive(root.right, key);
             } else if (rootRole.equals(FlightCrewMember.Role.COPILOT)) {
                 if (key.getRole().equals(FlightCrewMember.Role.PILOT)) {
-                    root.right = delete_Recursive(root.right, key);
+                    root.right = remove_Recursive(root.right, key);
                 } else {
-                    root.left = delete_Recursive(root.left, key);
+                    root.left = remove_Recursive(root.left, key);
                 }
             }
         }
@@ -65,7 +65,7 @@ class BST {
             root.crewMember = minValue(root.right);
 
             // Delete the inorder successor
-            root.right = delete_Recursive(root.right, root.crewMember);
+            root.right = remove_Recursive(root.right, root.crewMember);
         }
         return root;
     }
@@ -83,11 +83,11 @@ class BST {
 
     // insert a node in BST
     void add(FlightCrewMember key)  {
-        root = insert_Recursive(root, key);
+        root = add_Recursive(root, key);
     }
 
     //recursive insert function
-    Node insert_Recursive(Node root, FlightCrewMember key) {
+    Node add_Recursive(Node root, FlightCrewMember key) {
         //tree is empty
         if (root == null) {
             root = new Node(key);
@@ -95,23 +95,23 @@ class BST {
         }
         //traverse the tree
         if (key.getWorkExperience() < root.crewMember.getWorkExperience())     //insert in the left subtree
-            root.left = insert_Recursive(root.left, key);
+            root.left = add_Recursive(root.left, key);
         else if (key.getWorkExperience() > root.crewMember.getWorkExperience())    //insert in the right subtree
-            root.right = insert_Recursive(root.right, key);
+            root.right = add_Recursive(root.right, key);
         // return pointer
         else {
             FlightCrewMember.Role rootRole = root.crewMember.getRole();
             if (rootRole.equals(key.getRole())) {
-                root.right = insert_Recursive(root.right, key);
+                root.right = add_Recursive(root.right, key);
             } else if (rootRole.equals(FlightCrewMember.Role.PILOT)) {
-                root.left = insert_Recursive(root.left, key);
+                root.left = add_Recursive(root.left, key);
             } else if (rootRole.equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)) {
-                root.right = insert_Recursive(root.right, key);
+                root.right = add_Recursive(root.right, key);
             } else if (rootRole.equals(FlightCrewMember.Role.COPILOT)) {
                 if (key.getRole().equals(FlightCrewMember.Role.PILOT)) {
-                    root.right = insert_Recursive(root.right, key);
+                    root.right = add_Recursive(root.right, key);
                 } else {
-                    root.left = insert_Recursive(root.left, key);
+                    root.left = add_Recursive(root.left, key);
                 }
             }
         }
@@ -182,11 +182,11 @@ class Main{
 
         //delete leaf node
         System.out.println("\nThe BST after Delete 12(leaf node):");
-        bst.delete(member4);
+        bst.remove(member4);
         bst.inorder();
         //delete the node with one child
         System.out.println("\nThe BST after Delete 90 (node with 1 child):");
-        bst.delete(member5);
+        bst.remove(member5);
         bst.inorder();
 
         FlightCrewMember member7 = new SomeTests.CrewMemberTemp("pilot2", FlightCrewMember.Role.FLIGHT_ATTENDANT, 45);
@@ -194,12 +194,12 @@ class Main{
         bst.add(member7);
         bst.inorder();
         System.out.println("\nDELETE");
-        bst.delete(member7);
+        bst.remove(member7);
         bst.inorder();
 
         //delete node with two children
         System.out.println("\nThe BST after Delete 45 (Node with two children):");
-        bst.delete(member1);
+        bst.remove(member1);
         bst.inorder();
         //search a key in the BST
         boolean ret_val = bst.search (50);
