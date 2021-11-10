@@ -52,7 +52,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
             } else if (participantRole.equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)) {
 
-                Optional<FlightCrewMember> optionalCopilot = getCopilotByPilot(participant);
+                Optional<FlightCrewMember> optionalCopilot = getCopilotByFlightAssistant(participant);
 
                 if (optionalCopilot.isEmpty()) {
                     bst.add(participant);
@@ -93,8 +93,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
         Stream<FlightCrewMember> copilots = crewMembersWithoutTeam()
                 .stream()
                 .filter(crewMember -> (crewMember.getRole().equals(FlightCrewMember.Role.COPILOT)
-                        && -10 >= (crewMember.getWorkExperience() - pilotWorkExperience)
-                        && (crewMember.getWorkExperience() - pilotWorkExperience) <= -5));
+                        && 10 >= (pilotWorkExperience - crewMember.getWorkExperience())
+                        && (pilotWorkExperience - crewMember.getWorkExperience()) >= 5));
         return copilots.max(Comparator.comparingDouble(FlightCrewMember::getWorkExperience));
     }
 

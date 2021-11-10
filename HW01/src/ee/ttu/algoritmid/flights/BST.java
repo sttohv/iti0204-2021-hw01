@@ -2,6 +2,7 @@ package ee.ttu.algoritmid.flights;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class BST {
     //node class that defines BST node
@@ -16,11 +17,13 @@ class BST {
     }
     // BST root node
     Node root;
-    List<FlightCrewMember> waitingList = new ArrayList<>();
+    List<FlightCrewMember> waitingList;
 
     // Constructor for BST =>initial empty tree
     BST(){
         root = null;
+        waitingList = new ArrayList<>();
+
     }
     //delete a node from BST
     void remove(FlightCrewMember crewMember) {
@@ -179,15 +182,21 @@ class Main{
         //print the BST
         System.out.println("The BST Created with input data(Left-root-right):");
         bst.inorder();
+        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
+
 
         //delete leaf node
         System.out.println("\nThe BST after Delete 12(leaf node):");
         bst.remove(member4);
         bst.inorder();
+        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
+
         //delete the node with one child
         System.out.println("\nThe BST after Delete 90 (node with 1 child):");
         bst.remove(member5);
         bst.inorder();
+        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
+
 
         FlightCrewMember member7 = new SomeTests.CrewMemberTemp("pilot2", FlightCrewMember.Role.FLIGHT_ATTENDANT, 45);
         System.out.println("\ninsert");
