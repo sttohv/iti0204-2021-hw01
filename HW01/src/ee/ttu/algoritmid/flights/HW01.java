@@ -4,8 +4,8 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class HW01 implements FlightCrewRegistrationSystem {
-    //private WaitingList waitingList = new WaitingList();
-    private List<FlightCrewMember> waitingList = new ArrayList<>();
+    private BST bst = new BST();
+    //////////private List<FlightCrewMember> waitingList = new ArrayList<>();
 
 
     @Override
@@ -21,13 +21,13 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 Optional<FlightCrewMember> optionalCopilot = getCopilotByPilot(participant);
 //                WaitingList.Node node = addNode();
                 if (optionalCopilot.isEmpty()) {
-                    waitingList.add(participant);
+                    bst.add(participant);
                     return null;
                 } else {
                     FlightCrewMember copilot = optionalCopilot.get();
                     Optional<FlightCrewMember> optionalFlightAttendant = getFlightAttendantByCopilot(copilot);
                     if (optionalFlightAttendant.isEmpty()) {
-                        waitingList.add(participant);
+                        bst.add(participant);
                         return null;
                     } else {
                         FlightCrewMember flightAttendant = optionalFlightAttendant.get();
@@ -41,7 +41,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 Optional<FlightCrewMember> optionalFlightAttendant = getFlightAttendantByCopilot(participant);
 
                 if (optionalFlightAttendant.isEmpty() || optionalPilot.isEmpty()) {
-                    waitingList.add(participant);
+                    bst.add(participant);
                     return null;
                 } else {
                     FlightCrewMember pilot = optionalPilot.get();
@@ -55,13 +55,13 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 Optional<FlightCrewMember> optionalCopilot = getCopilotByPilot(participant);
 
                 if (optionalCopilot.isEmpty()) {
-                    waitingList.add(participant);
+                    bst.add(participant);
                     return null;
                 } else {
                     FlightCrewMember copilot = optionalCopilot.get();
                     Optional<FlightCrewMember> optionalPilot = getPilotByCopilot(copilot);
                     if (optionalPilot.isEmpty()) {
-                        waitingList.add(participant);
+                        bst.add(participant);
                         return null;
                     } else {
                         FlightCrewMember pilot = optionalPilot.get();
@@ -76,12 +76,12 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     @Override
     public List<FlightCrewMember> crewMembersWithoutTeam() {
-        return waitingList;
+        return bst.waitingList;
     }
 
     private Optional<FlightCrewMember> getPilotByCopilot(FlightCrewMember copilot) {
         double copilotWorkExperience = copilot.getWorkExperience();
-        Stream<FlightCrewMember> pilot = waitingList
+        Stream<FlightCrewMember> pilot = bst.waitingList
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.PILOT)
                         && 10 >= (member.getWorkExperience() - copilotWorkExperience) && 5 <= (member.getWorkExperience()) - copilotWorkExperience);
@@ -100,7 +100,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     private Optional<FlightCrewMember> getCopilotByFlightAssistant(FlightCrewMember flightAssistant) {
         double flightAssistantWorkExperience = flightAssistant.getWorkExperience();
-        Stream<FlightCrewMember> copilots = waitingList
+        Stream<FlightCrewMember> copilots = bst
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.COPILOT)
                         && 3 >= (member.getWorkExperience()) - flightAssistantWorkExperience);
@@ -110,7 +110,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
     //annad sisse copiloti
     private Optional<FlightCrewMember> getFlightAttendantByCopilot(FlightCrewMember copilot) {
         double copilotWorkExperience = copilot.getWorkExperience();
-        Stream<FlightCrewMember> flightAttendants = waitingList
+        Stream<FlightCrewMember> flightAttendants = bst
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)
                         && 3 >= (copilotWorkExperience - member.getWorkExperience()));
@@ -118,9 +118,9 @@ public class HW01 implements FlightCrewRegistrationSystem {
     }
 
     public void removeCrewFromWaitingList(FlightCrewMember pilot, FlightCrewMember copilot, FlightCrewMember flightAttendant) {
-        waitingList.remove(pilot);
-        waitingList.remove(copilot);
-        waitingList.remove(flightAttendant);
+        bst.remove(pilot);
+        bst.remove(copilot);
+        bst.remove(flightAttendant);
     }
 
 

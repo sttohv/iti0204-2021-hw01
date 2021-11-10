@@ -278,7 +278,7 @@ public class SomeTests {
         throw new RuntimeException(text);
     }
 
-    private static class CrewMemberTemp implements FlightCrewMember {
+    public static class CrewMemberTemp implements FlightCrewMember {
 
         private final String name;
         private final Role role;
