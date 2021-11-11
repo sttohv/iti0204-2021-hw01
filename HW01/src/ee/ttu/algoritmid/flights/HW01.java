@@ -128,6 +128,6 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
 
     public boolean crewMemberCorrect(FlightCrewMember participant) {
-        return participant != null && !participant.getName().isEmpty() && participant.getWorkExperience() >= 0 && participant.getRole() != null;
+        return participant != null && participant.getName() != null && !participant.getName().isEmpty() && participant.getWorkExperience() >= 0 && participant.getRole() != null;
     }
 }
