@@ -247,7 +247,7 @@ public class SomeTests {
 
         if (team == null) {
             if (expectedTeamExperience != null) {
-                System.out.println(team + "aaa" + Arrays.toString(expectedTeamExperience));
+                //System.out.println(team + "aaa" + Arrays.toString(expectedTeamExperience));
                 fail("Team wasn't found, but should have: " + caseId);
             }
         } else {

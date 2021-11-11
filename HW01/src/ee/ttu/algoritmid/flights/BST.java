@@ -140,7 +140,7 @@ class BST {
         if (root != null) {
             inorder_Recursive(root.left);
             waitingList.add(root.crewMember);
-            System.out.print(root.crewMember.getRole() + "=" + root.crewMember.getWorkExperience() + " ");
+            //System.out.print(root.crewMember.getRole() + "=" + root.crewMember.getWorkExperience() + " ");
             inorder_Recursive(root.right);
         }
     }
