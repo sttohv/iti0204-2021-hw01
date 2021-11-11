@@ -28,7 +28,7 @@ class BST {
     //delete a node from BST
     void remove(FlightCrewMember crewMember) {
         root = remove_Recursive(root, crewMember);
-        //waitingList.remove(crewMember);
+      //  waitingList.remove(crewMember);
     }
 
     //recursive delete function

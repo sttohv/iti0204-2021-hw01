@@ -46,6 +46,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 } else {
                     FlightCrewMember pilot = optionalPilot.get();
                     FlightCrewMember flightAttendant = optionalFlightAttendant.get();
+
                     removeCrewFromWaitingList(pilot, participant, flightAttendant);
                     return new Crew(pilot, participant, flightAttendant);
                 }
@@ -104,7 +105,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
         Stream<FlightCrewMember> copilots = bst.getWaitingList()
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.COPILOT)
-                        && 3 >= (member.getWorkExperience()) - flightAssistantWorkExperience);
+                        && 3 <= (member.getWorkExperience()) - flightAssistantWorkExperience);
         return copilots.min(Comparator.comparingDouble(FlightCrewMember::getWorkExperience));
     }
 
@@ -114,7 +115,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
         Stream<FlightCrewMember> flightAttendants = bst.getWaitingList()
                 .stream()
                 .filter(member -> member.getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)
-                        && 3 >= (copilotWorkExperience - member.getWorkExperience()));
+                        && 3 <= (copilotWorkExperience - member.getWorkExperience()));
         return flightAttendants.max(Comparator.comparingDouble(FlightCrewMember::getWorkExperience));
     }
 
@@ -122,6 +123,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
         bst.remove(pilot);
         bst.remove(copilot);
         bst.remove(flightAttendant);
+        bst.inorder();
     }
 
 

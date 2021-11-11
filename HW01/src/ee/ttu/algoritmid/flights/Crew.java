@@ -12,16 +12,16 @@ public class Crew implements FlightCrew{
     }
     @Override
     public FlightCrewMember getPilot() {
-        return null;
+        return pilot;
     }
 
     @Override
     public FlightCrewMember getCopilot() {
-        return null;
+        return copilot;
     }
 
     @Override
     public FlightCrewMember getFlightAttendant() {
-        return null;
+        return flightAttendant;
     }
 }
