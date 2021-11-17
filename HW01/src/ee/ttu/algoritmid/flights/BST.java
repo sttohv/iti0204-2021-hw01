@@ -4,20 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class BST {
-    //node class that defines BST node
-    class Node {
-        FlightCrewMember crewMember;
-        Node left, right;
+class BST extends BinarySearch{
 
-        public Node(FlightCrewMember crewMember){
-            this.crewMember = crewMember;
-            left = right = null;
-        }
-    }
     // BST root node
-    Node root;
-    private List<FlightCrewMember> waitingList;
+    public Node root;
+    private List<Node> waitingList;
 
     // Constructor for BST =>initial empty tree
     BST(){
@@ -25,14 +16,27 @@ class BST {
         waitingList = new ArrayList<>();
 
     }
+
+    public List<Node> getPilotList() {
+        return waitingList.stream().filter(member -> member.getCrewMember().getRole().equals(FlightCrewMember.Role.PILOT)).collect(Collectors.toList());
+    }
+
+    public List<Node> getCoPilotList() {
+        return waitingList.stream().filter(member -> member.getCrewMember().getRole().equals(FlightCrewMember.Role.COPILOT)).collect(Collectors.toList());
+    }
+
+    public List<Node> getFlightAttendantList() {
+        return waitingList.stream().filter(member -> member.getCrewMember().getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)).collect(Collectors.toList());
+    }
+
     //delete a node from BST
-    void remove(FlightCrewMember crewMember) {
+    public void remove(FlightCrewMember crewMember) {
         root = remove_Recursive(root, crewMember);
       //  waitingList.remove(crewMember);
     }
 
     //recursive delete function
-    Node remove_Recursive(Node root, FlightCrewMember key)  {
+    public Node remove_Recursive(Node root, FlightCrewMember key)  {
         //tree is empty
         if (root == null)  return root;
 
@@ -74,7 +78,7 @@ class BST {
         return root;
     }
 
-    FlightCrewMember minValue(Node root)  {
+    public FlightCrewMember minValue(Node root)  {
         //initially minval = root
         FlightCrewMember minval = root.crewMember;
         //find minval
@@ -85,18 +89,18 @@ class BST {
         return minval;
     }
 
-    public List<FlightCrewMember> getWaitingList() {
+    public List<Node> getWaitingList() {
         inorder();
         return waitingList;
     }
 
     // insert a node in BST
-    void add(FlightCrewMember key)  {
+    public void add(FlightCrewMember key)  {
         root = add_Recursive(root, key);
     }
 
     //recursive insert function
-    Node add_Recursive(Node root, FlightCrewMember key) {
+    public Node add_Recursive(Node root, FlightCrewMember key) {
         //tree is empty
         if (root == null) {
             root = new Node(key);
@@ -128,7 +132,7 @@ class BST {
     }
 
     // method for inorder traversal of BST
-    void inorder() {
+    public void inorder() {
         if(!waitingList.isEmpty()){
             waitingList = new ArrayList<>();
         }
@@ -136,34 +140,15 @@ class BST {
     }
 
     // recursively traverse the BST
-    void inorder_Recursive(Node root) {
+    public void inorder_Recursive(Node root) {
         if (root != null) {
             inorder_Recursive(root.left);
-            waitingList.add(root.crewMember);
+            waitingList.add(root);
             //System.out.print(root.crewMember.getRole() + "=" + root.crewMember.getWorkExperience() + " ");
             inorder_Recursive(root.right);
         }
     }
 
-    boolean search(int key)  {
-        root = search_Recursive(root, key);
-        if (root!= null)
-            return true;
-        else
-            return false;
-    }
-
-    //recursive insert function
-    Node search_Recursive(Node root, int key)  {
-        // Base Cases: root is null or key is present at root
-        if (root==null || root.crewMember.getWorkExperience() ==key)
-            return root;
-        // val is greater than root's key
-        if (root.crewMember.getWorkExperience() > key)
-            return search_Recursive(root.left, key);
-        // val is less than root's key
-        return search_Recursive(root.right, key);
-    }
 
     public static void main(String[] args)  {
         //create a BST object
@@ -190,27 +175,24 @@ class BST {
         //print the BST
         System.out.println("The BST Created with input data(Left-root-right):");
         bst.inorder();
-        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
+        //System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
 
 
         //delete leaf node
         System.out.println("\nThe BST after Delete 12(leaf node):");
         bst.remove(member4);
         bst.inorder();
-        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
 
         //delete the node with one child
         System.out.println("\nThe BST after Delete 90 (node with 1 child):");
         bst.remove(member5);
         bst.inorder();
-        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
 
 
         FlightCrewMember member7 = new SomeTests.CrewMemberTemp("pilot2", FlightCrewMember.Role.FLIGHT_ATTENDANT, 45);
         System.out.println("\ninsert");
         bst.add(member7);
         bst.inorder();
-        System.out.println("\n" + bst.waitingList.stream().map(FlightCrewMember::getWorkExperience).collect(Collectors.toList()));
 
         System.out.println("\nDELETE");
         bst.remove(member7);
@@ -221,9 +203,9 @@ class BST {
         bst.remove(member1);
         bst.inorder();
         //search a key in the BST
-        boolean ret_val = bst.search (50);
-        System.out.println("\nKey 50 found in BST:" + ret_val );
-        ret_val = bst.search (12);
-        System.out.println("\nKey 12 found in BST:" + ret_val );
+//        boolean ret_val = bst.search (50);
+//        System.out.println("\nKey 50 found in BST:" + ret_val );
+//        ret_val = bst.search (12);
+//        System.out.println("\nKey 12 found in BST:" + ret_val );
     }
 }
