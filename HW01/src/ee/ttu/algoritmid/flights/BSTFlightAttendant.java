@@ -33,15 +33,15 @@ public class BSTFlightAttendant extends BinarySearch{
     }
 
     public Node search_Recursive(Node root, double to) {
-        // rn tagastab esimese, kes sobib
-        if (root==null || root.crewMember.getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT)
-                && root.crewMember.getWorkExperience() <= to)
-            //suitablePilots.add(root.crewMember);
+        if (root==null || root.crewMember.getWorkExperience() - to == 0)
             return root;
 
         if (root.crewMember.getWorkExperience() > to)
             return search_Recursive(root.left, to);
-
-        return search_Recursive(root.right, to);
+        else {
+            Node right = search_Recursive(root.right, to);
+            if (right != null) return right;
+            return root;
+        }
     }
 }

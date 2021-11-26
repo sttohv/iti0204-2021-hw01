@@ -101,8 +101,11 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     public void removeCrewFromWaitingList(FlightCrewMember pilot, FlightCrewMember copilot, FlightCrewMember flightAttendant) {
         bst.remove(pilot);
+        bstPilot.remove(pilot);
         bst.remove(copilot);
+        bstCoPilot.remove(copilot);
         bst.remove(flightAttendant);
+        bstFlightAttendant.remove(flightAttendant);
         bst.inorder();
     }
 

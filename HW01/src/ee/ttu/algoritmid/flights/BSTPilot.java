@@ -38,15 +38,16 @@ public class BSTPilot extends BinarySearch{
 
 
     public Node search_Recursive(Node root, double from, double to)  {
-        // rn tagastab esimese, kes sobib
-        if (root==null || root.crewMember.getRole().equals(FlightCrewMember.Role.PILOT)
-                && root.crewMember.getWorkExperience() >= from && root.crewMember.getWorkExperience() <= to)
-            //suitablePilots.add(root.crewMember);
+        if (root==null || root.crewMember.getWorkExperience() - from == 0)
             return root;
-        // val is greater than root's key
         if (root.crewMember.getWorkExperience() > to)
             return search_Recursive(root.left, from, to);
-        // val is less than root's key
-        return search_Recursive(root.right, from, to);
+        else if (root.crewMember.getWorkExperience() < from)
+            return search_Recursive(root.right, from, to);
+        else {
+            Node left = search_Recursive(root.left, from, to);
+            if (left != null) return left;
+            return root;
+        }
     }
 }

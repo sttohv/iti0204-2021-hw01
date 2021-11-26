@@ -44,32 +44,33 @@ public class BSTCoPilot extends BinarySearch{
             else
                 return null;
         }
-//        if (root!= null)
-//            return root.crewMember;
-//        else
-//            return null;
+
     }
 
 
     public Node searchByPilot(Node root, double from, double to)  {
-        // rn tagastab esimese, kes sobib
-        if (root==null || root.crewMember.getRole().equals(FlightCrewMember.Role.COPILOT)
-                && root.crewMember.getWorkExperience() >= from && root.crewMember.getWorkExperience() <= to)
-            //suitablePilots.add(root.crewMember);
+        if (root==null || root.crewMember.getWorkExperience() - from == 0)
             return root;
         if (root.crewMember.getWorkExperience() > to)
             return searchByPilot(root.left, from, to);
-        return searchByPilot(root.right, from, to);
+        else if(root.crewMember.getWorkExperience() < from)
+            return searchByPilot(root.right, from, to);
+        else {
+            Node right = searchByPilot(root.right, from, to);
+            if (right != null) return right;
+            return root;
+        }
     }
 
     public Node searchByFlightAttendant(Node root, double from)  {
-        // rn tagastab esimese, kes sobib
-        if (root==null || root.crewMember.getRole().equals(FlightCrewMember.Role.COPILOT)
-                && root.crewMember.getWorkExperience() >= from)
-            //suitablePilots.add(root.crewMember);
+        if (root==null || root.crewMember.getWorkExperience() - from == 0)
             return root;
-        if (root.crewMember.getWorkExperience() > from)
-            return searchByFlightAttendant(root.left, from);
-        return searchByFlightAttendant(root.right, from);
+        if (root.crewMember.getWorkExperience() < from)
+            return searchByFlightAttendant(root.right, from);
+        else {
+            Node left = searchByFlightAttendant(root.left, from);
+            if (left != null) return left;
+            return root;
+        }
     }
 }
