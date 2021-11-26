@@ -116,7 +116,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
 
     public static void main(String[] args) {
-         BST bst = new BST();
+        BST bst = new BST();
         BSTPilot bstPilot = new BSTPilot();
         BSTCoPilot bstCoPilot = new BSTCoPilot();
         BSTFlightAttendant bstFlightAttendant = new BSTFlightAttendant();

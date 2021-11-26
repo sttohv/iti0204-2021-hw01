@@ -49,7 +49,7 @@ public class BSTCoPilot extends BinarySearch{
 
 
     public Node searchByPilot(Node root, double from, double to)  {
-        if (root==null || root.crewMember.getWorkExperience() - from == 0)
+        if (root==null || root.crewMember.getWorkExperience() - to == 0)
             return root;
         if (root.crewMember.getWorkExperience() > to)
             return searchByPilot(root.left, from, to);
